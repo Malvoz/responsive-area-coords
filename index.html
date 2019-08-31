@@ -8,7 +8,14 @@
 /* Ignore these demo presentation styles. */
 	body{max-width:800px;padding:2rem;margin:0 auto;font-family:system-ui;line-height:1.5}[type="checkbox"]:checked ~ * .coords{background-color:black;opacity:.2}input{font:inherit}::selection{background-color:transparent}input,label{cursor:pointer}[usemap]{pointer-events:none}*{-webkit-box-sizing:border-box;box-sizing:border-box}
 
-/* Prevent overriding the `coords` attribute values in browsers that (e.g.) do not support `clip-path`. */
+/* Prevent overriding the `coords` attribute values in browsers that (e.g.) do not support `clip-path`.
+ * As CSS doesn't allow for @supports (HTMLPictureElement), we look for support of `clip-path` instead because
+ * it is essential for the functionality, and it was implemented in browsers after <picture> so in most cases
+ * if `clip-path` is supported then <picture> is too.
+ *
+ * https://caniuse.com/#feat=css-clip-path
+ * https://caniuse.com/#feat=picture
+ */
 	@supports(clip-path: initial) or (-webkit-clip-path: initial) {
 
 		picture {
@@ -17,7 +24,12 @@
 			overflow: hidden;
 		}
 
-	/* Images should be responsive. */
+	/* Images should be responsive.
+	 * In a real word application today, you wouldn't want to set this inside an @supports rule
+	 * because it's not supported in all browsers (https://caniuse.com/#feat=css-featurequeries),
+	 * however if <picture> isn't supported, then `coords` will apply to <img> and because `coords`
+	 * doesn't work well with responsive images we must fall back to unresponsive images.
+	 */
 		img {
 			max-width: 100%;
 			width: 100%;
@@ -37,7 +49,7 @@
 			line-height: 0;
 			position: absolute;
 			z-index: 2;
-			/* Some useful default styles if we'd want to use background-images for the area element:
+			/* (Optional) Some useful default styles if we'd want to use background-images for the area element:
 			 *
 			 *	background-repeat: no-repeat;
 			 *	background-position: center;
@@ -50,7 +62,7 @@
 		@media(max-width:425px) {
 			.coords {
 				-webkit-clip-path: circle(38%);
-								clip-path: circle(38%);
+					clip-path: circle(38%);
 				height: 5%;
 				width: 30%;
 				left: 35%;
@@ -101,7 +113,7 @@
 		@media(min-width:426px) {
 			.coords {
 				-webkit-clip-path: circle(45%);
-								clip-path: circle(45%);
+					clip-path: circle(45%);
 				height: 20%;
 				width: 10%;
 			}
@@ -156,12 +168,11 @@
 				left: 85.6%;
 			}
 		}
-
-	}
-
-	* {
-		outline: 0; /* Hide outlines because they don't match the <area> `coords` placement.~
-		               This is an accessibility issue, shouldn't be done in real world applications. */
+		
+		* {
+			outline: 0; /* Hide outlines because they don't match the <area> `coords` placement.~
+				       This is an accessibility issue, shouldn't be done in real world applications. */
+		}
 	}
 </style>
 </head>
