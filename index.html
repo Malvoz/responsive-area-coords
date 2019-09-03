@@ -1,188 +1,161 @@
 <!DOCTYPE html>
 <!-- https://github.com/Maps4HTML/HTML-Map-Element/issues/22 -->
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-/* Ignore these demo presentation styles. */
-	body{max-width:800px;padding:2rem;margin:0 auto;font-family:system-ui;line-height:1.5}[type="checkbox"]:checked ~ * .coords{background-color:black;opacity:.2}input{font:inherit}::selection{background-color:transparent}input,label{cursor:pointer}[usemap]{pointer-events:none}*{-webkit-box-sizing:border-box;box-sizing:border-box}
-
-/* Prevent overriding the `coords` attribute values in browsers that (e.g.) do not support `clip-path`.
- * As CSS doesn't allow for @supports (HTMLPictureElement), we look for support of `clip-path` instead because
- * it is essential for the functionality, and it was implemented in browsers after <picture> so in most cases
- * if `clip-path` is supported then <picture> is too.
- *
- * https://caniuse.com/#feat=css-clip-path
- * https://caniuse.com/#feat=picture
- */
-	@supports(clip-path: initial) or (-webkit-clip-path: initial) {
-
-		picture {
-			position: relative;
-			display: block;
-			overflow: hidden;
-		}
-
-	/* Images should be responsive.
-	 * In a real word application today, you wouldn't want to set this inside an @supports rule
-	 * because it's not supported in all browsers (https://caniuse.com/#feat=css-featurequeries),
-	 * however if <picture> isn't supported, then `coords` will apply to <img> and because `coords`
-	 * doesn't work well with responsive images we must fall back to unresponsive images.
-	 */
-		img {
-			max-width: 100%;
-			width: 100%;
-			height: auto;
-			vertical-align: middle;
-		}
-
-		map {
-			width: 100%;
-			display: contents;
-			position: absolute;
-			height: 100%;
-			top: 0;
-		}
-
-		.coords {
-			line-height: 0;
-			position: absolute;
-			z-index: 2;
-			/* (Optional) Some useful default styles if we'd want to use background-images for the area element:
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+    /* Ignore these demo presentation styles. */
+    body{max-width:800px;padding:0 2rem 2rem;margin:0 auto;font-family:system-ui;line-height:1.5}[type="checkbox"]:checked ~ * .coords{background-color:black;opacity:.2}input{font:inherit}::selection{background-color:transparent}input,label{cursor:pointer}[usemap]{pointer-events:none}*{-webkit-box-sizing:border-box;box-sizing:border-box}
+            
+        /* Prevent overriding the `coords` attribute values in browsers that (e.g.) do not support `clip-path`.
+         * As CSS doesn't allow for @supports (HTMLPictureElement), we look for support of `clip-path` instead because
+         * it is essential for the functionality, and it was implemented in browsers after <picture> so in most cases
+         * if `clip-path` is supported then <picture> is too.
+         *
+         * https://caniuse.com/#feat=css-clip-path
+         * https://caniuse.com/#feat=picture
+         */    
+        @supports(clip-path: initial) or (-webkit-clip-path: initial) {
+            picture {
+                position: relative;
+                display: block;
+                overflow: hidden;
+            }
+           /* Images should be responsive.
+	    * In a real word application today, you wouldn't want to set this inside an @supports rule
+	    * because it's not supported in all browsers (https://caniuse.com/#feat=css-featurequeries),
+	    * however if <picture> isn't supported, then `coords` will apply to <img> and because `coords`
+	    * doesn't work well with responsive images we must fall back to unresponsive images.
+	    */
+            img {
+                max-width: 100%;
+                width: 100%;
+                height: auto;
+                vertical-align: middle;
+            }
+            map {
+                width: 100%;
+                display: contents;
+                position: absolute;
+                height: 100%;
+                top: 0;
+            }
+            .coords {
+                line-height: 0;
+                position: absolute;
+                z-index: 2;
+                /* (Optional) Some useful default styles if we'd want to use background-images for the area element:
 			 *
 			 *	background-repeat: no-repeat;
 			 *	background-position: center;
 			 *  background-size: 100%;
 			 * 	background-color: #000; // since we could potentially use background-images for different .coords, this acts as fallback bg-color when the image(s) didn't load.
 			 */
-		}
-
-	/* Set the "coordinates". */
-		@media(max-width:425px) {
-			.coords {
-				-webkit-clip-path: circle(38%);
-					clip-path: circle(38%);
-				height: 5%;
-				width: 30%;
-				left: 35%;
-			}
-
-			.coords.a {
-				top: 1.15%;
-			}
-
-			.coords.b {
-				top: 10.85%;
-			}
-
-			.coords.c {
-				top: 21.15%;
-			}
-
-			.coords.d {
-				top: 31.5%;
-			}
-
-			.coords.e {
-				top: 40.9%;
-			}
-
-			.coords.f {
-				top: 50.85%;
-			}
-
-			.coords.g {
-				top: 60.75%;
-			}
-
-			.coords.h {
-				top: 70.6%;
-			}
-
-			.coords.i {
-				top: 81%;
-			}
-
-			.coords.j {
-				top: 90.95%;
-				left: 34.5%;
-			}
-		}
-
-		@media(min-width:426px) {
-			.coords {
-				-webkit-clip-path: circle(45%);
-					clip-path: circle(45%);
-				height: 20%;
-				width: 10%;
-			}
-
-			.coords.a {
-				top: 9.75%;
-				left: 4.5%;
-			}
-
-			.coords.b {
-				top: 9.5%;
-				left: 24.75%;
-			}
-
-			.coords.c {
-				top: 9.5%;
-				left: 45.1%;
-			}
-
-			.coords.d {
-				top: 9.5%;
-				left: 65.4%;
-			}
-
-			.coords.e {
-				top: 9.5%;
-				left: 85.6%;
-			}
-
-			.coords.f {
-				top: 59%;
-				left: 4.5%;
-			}
-
-			.coords.g {
-				top: 59%;
-				left: 24.75%;
-			}
-
-			.coords.h {
-				top: 59%;
-				left: 45.1%;
-			}
-
-			.coords.i {
-				top: 59%;
-				left: 65.4%;
-			}
-
-			.coords.j {
-				top: 59%;
-				left: 85.6%;
-			}
-		}
-		
-		* {
-			outline: 0; /* Hide outlines because they don't match the <area> `coords` placement.~
+            }
+            /* Set the "coordinates". */
+            .coords {
+                -webkit-clip-path: circle(38%);
+                clip-path: circle(38%);
+                height: 5%;
+                width: 30%;
+                left: 35%;
+            }
+            .coords.a {
+                top: 1.15%;
+            }
+            .coords.b {
+                top: 10.85%;
+            }
+            .coords.c {
+                top: 21.15%;
+            }
+            .coords.d {
+                top: 31.5%;
+            }
+            .coords.e {
+                top: 40.9%;
+            }
+            .coords.f {
+                top: 50.85%;
+            }
+            .coords.g {
+                top: 60.75%;
+            }
+            .coords.h {
+                top: 70.6%;
+            }
+            .coords.i {
+                top: 81%;
+            }
+            .coords.j {
+                top: 90.95%;
+                left: 34.5%;
+            }
+            @media(min-width:426px) {
+                .coords {
+                    -webkit-clip-path: circle(45%);
+                    clip-path: circle(45%);
+                    height: 20%;
+                    width: 10%;
+                }
+                .coords.a {
+                    top: 9.75%;
+                    left: 4.5%;
+                }
+                .coords.b {
+                    top: 9.5%;
+                    left: 24.75%;
+                }
+                .coords.c {
+                    top: 9.5%;
+                    left: 45.1%;
+                }
+                .coords.d {
+                    top: 9.5%;
+                    left: 65.4%;
+                }
+                .coords.e {
+                    top: 9.5%;
+                    left: 85.6%;
+                }
+                .coords.f {
+                    top: 59%;
+                    left: 4.5%;
+                }
+                .coords.g {
+                    top: 59%;
+                    left: 24.75%;
+                }
+                .coords.h {
+                    top: 59%;
+                    left: 45.1%;
+                }
+                .coords.i {
+                    top: 59%;
+                    left: 65.4%;
+                }
+                .coords.j {
+                    top: 59%;
+                    left: 85.6%;
+                }
+            }
+            * {
+                outline: 0;
+                /* Hide outlines because they don't match the <area> `coords` placement.~
 				       This is an accessibility issue, shouldn't be done in real world applications. */
-		}
-	}
-</style>
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <p><a href="https://github.com/Malvoz/responsive-area-coords">Source</a> | <a href="https://github.com/Maps4HTML/HTML-Map-Element/issues/22">Use case</a></p>
+    <hr>
     <input id="toggle" type="checkbox">
     <label for="toggle">
-	Toggle <code>&lt;area&gt;</code>s' <code>background-color</code> &plus; added <code>opacity</code> to visualize the clickable
-	area for each element (as specified using <code>height</code>, <code>width</code> and <code>clip-path</code>, and positioned
-	using <code>top</code> and <code>left</code> properties).
+        Toggle <code>&lt;area&gt;</code>s' <code>background-color</code> &plus; added <code>opacity</code> to visualize the clickable area for each element (as specified using <code>height</code>, <code>width</code> and <code>clip-path</code>, and positioned using <code>top</code> and <code>left</code> properties).
     </label>
     <p>(Image changes at the 426px break point in this example.)</p>
 
@@ -205,4 +178,5 @@
     </picture>
 
 </body>
+
 </html>
