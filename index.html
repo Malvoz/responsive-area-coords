@@ -6,7 +6,7 @@
   <title>Responsive image maps using CSS</title>
   <style>
   /* Presentational demo styles. */
-  *,::before,::after{box-sizing:border-box}body{max-width:50em;padding:0 2rem 4rem;margin:0 auto;font-family:"Helvetcia Neue",arial,sans-serif;line-height:1.5;background-color:#fafafa}header{border-bottom:1px solid hsl(0,0%,92%);padding-bottom:1rem}h1{margin-bottom:.5rem}code{color:#54b491;font-size:120%;font-weight:600}input{font:inherit}[type=checkbox]:checked~* .coords{background-color:hsla(158,39%,52%,.3)}input,label{cursor:pointer;position:sticky;top:10px;z-index:2}label{background-color:hsla(0,0%,98%,80%)}label ::selection,label::selection{background-color:transparent}map{margin:2rem 0;border-radius:10px;overflow:hidden}[usemap]{pointer-events:none}
+  *,::before,::after{box-sizing:border-box}body{max-width:50em;padding:0 2rem 4rem;margin:0 auto;font-family:"Helvetcia Neue",arial,sans-serif;line-height:1.5;background-color:#fafafa}header{border-bottom:1px solid hsl(0,0%,92%);padding-bottom:1rem}h1{margin-bottom:.5rem}code{color:#54b491;font-size:120%;font-weight:600}input{font:inherit}[type=checkbox]:checked~* [coords]{background-color:hsla(158,39%,52%,.3)}input,label{cursor:pointer;position:sticky;top:10px;z-index:2}label{background-color:hsla(0,0%,98%,80%)}label ::selection,label::selection{background-color:transparent}map{margin:2rem 0;border-radius:10px;overflow:hidden}[usemap]{pointer-events:none}
   
   /* Feature detection for progressive enhancement. */
   @supports (clip-path: initial) or (-webkit-clip-path: initial) {
@@ -15,9 +15,11 @@
       display: block;
     }
     
-    area.coords {
+    area[coords] {
       position: absolute;
-      /* This example only uses a single shape for all the `<area>` elements. */
+    }
+    
+    area[shape="circle"] {
       -webkit-clip-path: circle();
               clip-path: circle();
     }
@@ -32,43 +34,43 @@
     
     @media (max-width: 425px) {
       /* Coordinate size in relation to the responsive image. */
-      .coords {
+      [coords] {
         height: 5%;
         width: 23%;
       }
       /* Coordinate position in relation to the responsive image. */
-      .coords {
+      [coords] {
         left: 38.5%;
       }
-      .coords.a {
+      [coords].a {
         top: 1.15%;
       }
-      .coords.b {
+      [coords].b {
         top: 10.85%;
       }
-      .coords.c {
+      [coords].c {
         top: 21.15%;
       }
-      .coords.d {
+      [coords].d {
         top: 31.5%;
       }
-      .coords.e {
+      [coords].e {
         top: 40.9%;
       }
-      .coords.f {
+      [coords].f {
         top: 50.85%;
       }
-      .coords.g {
+      [coords].g {
         top: 60.75%;
       }
-      .coords.h {
+      [coords].h {
         top: 70.6%;
       }
-      .coords.i {
+      [coords].i {
         top: 81%;
         left: 38%;
       }
-      .coords.j {
+      [coords].j {
         top: 90.95%;
         left: 38%;
       }
@@ -76,48 +78,48 @@
     
     @media (min-width: 426px) {
       /* Coordinate size in relation to the responsive image. */
-      .coords {
+      [coords] {
         height: 20%;
         width: 9.2%;
       }
       /* Coordinate position in relation to the responsive image. */
-      .coords.a {
+      [coords].a {
         top: 9.75%;
         left: 4.75%;
       }
-      .coords.b {
+      [coords].b {
         top: 9.5%;
         left: 25%;
       }
-      .coords.c {
+      [coords].c {
         top: 9.5%;
         left: 45.5%;
       }
-      .coords.d {
+      [coords].d {
         top: 9.5%;
         left: 66%;
       }
-      .coords.e {
+      [coords].e {
         top: 9.5%;
         left: 86%;
       }
-      .coords.f {
+      [coords].f {
         top: 59%;
         left: 4.75%;
       }
-      .coords.g {
+      [coords].g {
         top: 59%;
         left: 25%;
       }
-      .coords.h {
+      [coords].h {
         top: 59%;
         left: 45.5%;
       }
-      .coords.i {
+      [coords].i {
         top: 59%;
         left: 66%;
       }
-      .coords.j {
+      [coords].j {
         top: 59%;
         left: 86%;
       }
@@ -155,16 +157,16 @@
       <source media="(min-width: 426px)" srcset="shortcuts-2.png">
       <img usemap="#map" src="shortcuts-1.png" width="736" height="335" alt="Shortcuts">
     </picture>
-    <area class="coords a" shape="circle" coords="70,66,35" href="#?=https://github.com/Maps4HTML" alt="Maps for HTML on GitHub">
-    <area class="coords b" shape="circle" coords="219,66,35" href="#?=https://twitter.com/" alt="Twitter">
-    <area class="coords c" shape="circle" coords="369,66,35" href="#?=https://www.cbc.ca/news" alt="CBC">
-    <area class="coords d" shape="circle" coords="518,66,35" href="#?=http://geogratis.gc.ca/mapml/en/" alt="GeoGratis MapML Directory">
-    <area class="coords e" shape="circle" coords="667,66,35" href="#?=https://mail.google.com/mail/u/0/" alt="GMail">
-    <area class="coords f" shape="circle" coords="70,232,35" href="#?=https://www.theweathernetwork.com/ca/weather/ontario/ottawa" alt="The Weather Network">
-    <area class="coords g" shape="circle" coords="219,232,35" href="#?=https://buyandsell.gc.ca/" alt="Procurement / Tenders">
-    <area class="coords h" shape="circle" coords="369,232,35" href="#?=https://www.google.com/maps" alt="Google Maps">
-    <area class="coords i" shape="circle" coords="518,232,35" href="#?=https://gcdocs.gc.ca/nrcan-rncan/llisapi.dll?func=ll&objID=2119766&objAction=browse" alt="GCDocs">
-    <area class="coords j" shape="circle" coords="667,232,35" href="#?=https://github.com/prushforth/repositories" alt="GitHub">
+    <area class="a" shape="circle" coords="70,66,35" href="#?=https://github.com/Maps4HTML" alt="Maps for HTML on GitHub">
+    <area class="b" shape="circle" coords="219,66,35" href="#?=https://twitter.com/" alt="Twitter">
+    <area class="c" shape="circle" coords="369,66,35" href="#?=https://www.cbc.ca/news" alt="CBC">
+    <area class="d" shape="circle" coords="518,66,35" href="#?=http://geogratis.gc.ca/mapml/en/" alt="GeoGratis MapML Directory">
+    <area class="e" shape="circle" coords="667,66,35" href="#?=https://mail.google.com/mail/u/0/" alt="GMail">
+    <area class="f" shape="circle" coords="70,232,35" href="#?=https://www.theweathernetwork.com/ca/weather/ontario/ottawa" alt="The Weather Network">
+    <area class="g" shape="circle" coords="219,232,35" href="#?=https://buyandsell.gc.ca/" alt="Procurement / Tenders">
+    <area class="h" shape="circle" coords="369,232,35" href="#?=https://www.google.com/maps" alt="Google Maps">
+    <area class="i" shape="circle" coords="518,232,35" href="#?=https://gcdocs.gc.ca/nrcan-rncan/llisapi.dll?func=ll&objID=2119766&objAction=browse" alt="GCDocs">
+    <area class="j" shape="circle" coords="667,232,35" href="#?=https://github.com/prushforth/repositories" alt="GitHub">
   </map>
   
   <h2 id="issues">Issues</h2>
