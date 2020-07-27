@@ -1,182 +1,186 @@
 <!DOCTYPE html>
-<!-- https://github.com/Maps4HTML/HTML-Map-Element/issues/22 -->
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <style>
-    /* Ignore these demo presentation styles. */
-    body{max-width:800px;padding:0 2rem 2rem;margin:0 auto;font-family:system-ui;line-height:1.5}[type="checkbox"]:checked ~ * .coords{background-color:black;opacity:.2}input{font:inherit}::selection{background-color:transparent}input,label{cursor:pointer}[usemap]{pointer-events:none}*{-webkit-box-sizing:border-box;box-sizing:border-box}
-            
-        /* Prevent overriding the `coords` attribute values in browsers that (e.g.) do not support `clip-path`.
-         * As CSS doesn't allow for @supports (HTMLPictureElement), we look for support of `clip-path` instead because
-         * it is essential for the functionality, and it was implemented in browsers after <picture> so in most cases
-         * if `clip-path` is supported then <picture> is too.
-         *
-         * https://caniuse.com/#feat=css-clip-path
-         * https://caniuse.com/#feat=picture
-         */    
-        @supports(clip-path: initial) or (-webkit-clip-path: initial) {
-            picture {
-                position: relative;
-                display: block;
-                overflow: hidden;
-            }
-           /* Images should be responsive.
-	    * In a real word application today, you wouldn't want to set this inside an @supports rule
-	    * because it's not supported in all browsers (https://caniuse.com/#feat=css-featurequeries),
-	    * however if <picture> isn't supported, then `coords` will apply to <img> and because `coords`
-	    * doesn't work well with responsive images we must fall back to unresponsive images.
-	    */
-            img {
-                max-width: 100%;
-                width: 100%;
-                height: auto;
-                vertical-align: middle;
-            }
-            map {
-                width: 100%;
-                display: contents;
-                position: absolute;
-                height: 100%;
-                top: 0;
-            }
-            .coords {
-                line-height: 0;
-                position: absolute;
-                z-index: 2;
-                /* (Optional) Some useful default styles if we'd want to use background-images for the area element:
-			 *
-			 *	background-repeat: no-repeat;
-			 *	background-position: center;
-			 *  background-size: 100%;
-			 * 	background-color: #000; // since we could potentially use background-images for different .coords, this acts as fallback bg-color when the image(s) didn't load.
-			 */
-            }
-            /* Set the "coordinates". */
-            .coords {
-                -webkit-clip-path: circle(38%);
-                clip-path: circle(38%);
-                height: 5%;
-                width: 30%;
-                left: 35%;
-            }
-            .coords.a {
-                top: 1.15%;
-            }
-            .coords.b {
-                top: 10.85%;
-            }
-            .coords.c {
-                top: 21.15%;
-            }
-            .coords.d {
-                top: 31.5%;
-            }
-            .coords.e {
-                top: 40.9%;
-            }
-            .coords.f {
-                top: 50.85%;
-            }
-            .coords.g {
-                top: 60.75%;
-            }
-            .coords.h {
-                top: 70.6%;
-            }
-            .coords.i {
-                top: 81%;
-            }
-            .coords.j {
-                top: 90.95%;
-                left: 34.5%;
-            }
-            @media(min-width:426px) {
-                .coords {
-                    -webkit-clip-path: circle(45%);
-                    clip-path: circle(45%);
-                    height: 20%;
-                    width: 10%;
-                }
-                .coords.a {
-                    top: 9.75%;
-                    left: 4.5%;
-                }
-                .coords.b {
-                    top: 9.5%;
-                    left: 24.75%;
-                }
-                .coords.c {
-                    top: 9.5%;
-                    left: 45.1%;
-                }
-                .coords.d {
-                    top: 9.5%;
-                    left: 65.4%;
-                }
-                .coords.e {
-                    top: 9.5%;
-                    left: 85.6%;
-                }
-                .coords.f {
-                    top: 59%;
-                    left: 4.5%;
-                }
-                .coords.g {
-                    top: 59%;
-                    left: 24.75%;
-                }
-                .coords.h {
-                    top: 59%;
-                    left: 45.1%;
-                }
-                .coords.i {
-                    top: 59%;
-                    left: 65.4%;
-                }
-                .coords.j {
-                    top: 59%;
-                    left: 85.6%;
-                }
-            }
-            * {
-                outline: 0;
-                /* Hide outlines because they don't match the <area> `coords` placement.~
-				       This is an accessibility issue, shouldn't be done in real world applications. */
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Responsive image maps using CSS</title>
+  <style>
+  /* Presentational demo styles. */
+  *,::before,::after{box-sizing:border-box}body{max-width:50em;padding:0 2rem 4rem;margin:0 auto;font-family:"Helvetcia Neue",arial,sans-serif;line-height:1.5;background-color:#fafafa}header{border-bottom:1px solid hsl(0,0%,92%);padding-bottom:1rem}h1{margin-bottom:.5rem}code{color:#54b491;font-size:120%;font-weight:600}input{font:inherit}[type=checkbox]:checked~* .coords{background-color:hsla(158,39%,52%,.3)}input,label{cursor:pointer;position:sticky;top:10px;z-index:2}label{background-color:hsla(0,0%,98%,80%)}label ::selection,label::selection{background-color:transparent}map{margin:2rem 0;border-radius:10px;overflow:hidden}[usemap]{pointer-events:none}
+  
+  /* Feature detection for progressive enchancement. */
+  @supports(clip-path: initial) or (-webkit-clip-path: initial) {
+    map {
+      position: relative;
+      display: block;
+    }
+    
+    /* Responsive image. */
+    img[usemap] {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      vertical-align: middle;
+    }
+    
+    area.coords {
+      position: absolute;
+      /* This example only uses a single shape for all the `<area>` elements. */
+      -webkit-clip-path: circle();
+              clip-path: circle();
+    }
+    
+    @media (max-width:425px) {
+      /* Coordinate size in relation to the responsive image. */
+      .coords {
+        height: 5%;
+        width: 23%;
+      }
+      /* Coordinate position in relation to the responsive image. */
+      .coords {
+        left: 38.5%;
+      }
+      .coords.a {
+        top: 1.15%;
+      }
+      .coords.b {
+        top: 10.85%;
+      }
+      .coords.c {
+        top: 21.15%;
+      }
+      .coords.d {
+        top: 31.5%;
+      }
+      .coords.e {
+        top: 40.9%;
+      }
+      .coords.f {
+        top: 50.85%;
+      }
+      .coords.g {
+        top: 60.75%;
+      }
+      .coords.h {
+        top: 70.6%;
+      }
+      .coords.i {
+        top: 81%;
+        left: 38%;
+      }
+      .coords.j {
+        top: 90.95%;
+        left: 38%;
+      }
+    }
+    
+    @media (min-width:426px) {
+      /* Coordinate size in relation to the responsive image. */
+      .coords {
+        height: 20%;
+        width: 9.2%;
+      }
+      /* Coordinate position in relation to the responsive image. */
+      .coords.a {
+        top: 9.75%;
+        left: 4.75%;
+      }
+      .coords.b {
+        top: 9.5%;
+        left: 25%;
+      }
+      .coords.c {
+        top: 9.5%;
+        left: 45.5%;
+      }
+      .coords.d {
+        top: 9.5%;
+        left: 66%;
+      }
+      .coords.e {
+        top: 9.5%;
+        left: 86%;
+      }
+      .coords.f {
+        top: 59%;
+        left: 4.75%;
+      }
+      .coords.g {
+        top: 59%;
+        left: 25%;
+      }
+      .coords.h {
+        top: 59%;
+        left: 45.5%;
+      }
+      .coords.i {
+        top: 59%;
+        left: 66%;
+      }
+      .coords.j {
+        top: 59%;
+        left: 86%;
+      }
+    }
+  }
+  </style>
 </head>
-
 <body>
-    <p><a href="https://github.com/Malvoz/responsive-area-coords">Source</a> | <a href="https://github.com/Maps4HTML/HTML-Map-Element/issues/22">Use case</a></p>
-    <hr>
-    <input id="toggle" type="checkbox">
-    <label for="toggle">
-        Toggle <code>&lt;area&gt;</code>s' <code>background-color</code> &plus; added <code>opacity</code> to visualize the clickable area for each element (as specified using <code>height</code>, <code>width</code> and <code>clip-path</code>, and positioned using <code>top</code> and <code>left</code> properties).
-    </label>
-    <p>(Image changes at the 426px break point in this example.)</p>
+  <header>
+    <h1>CSS-only Responsive image map</h1>
+    <a href="https://github.com/Maps4HTML/MapML/issues/101">Use case</a> |
+    <a href="https://github.com/Malvoz/responsive-area-coords">Source</a> 
+  </header>
+  
+  <p>This is an attempt to achieve responsiveness in image
+    maps using CSS; specifically using:
+    <code>height</code>,
+    <code>width</code> and
+    <code>clip-path</code> to set the <code>&lt;area&gt;</code>
+    element's dimensions and shape, and the <code>top</code> and <code>left</code>
+    properties to set positioning relative to the parent <code>&lt;map&gt;</code>
+    element.
+  </p>
+  
+  <h2>Example</h2>
+  <input id="toggle" type="checkbox">
+  <label for="toggle">
+    Visualize the clickable area of <code>&lt;area&gt;</code> elements in the image map:
+  </label>
+  <p>(Resize the viewport!)</p>
 
-    <!-- This is invalid HTML, instead you could just use a common wrapper for <picture> and <map> and move the <map> styles to that wrapper. -->
+  <map name="map">
     <picture>
-        <source media="(min-width: 426px)" srcset="responsive-test-1100x500.png">
-        <img usemap="#rimap" src="responsive-test-205x1225.png" width="205" height="1225" alt="shortcuts">
-        <map name="rimap">
-            <area class="coords a" shape="circle" coords="51,49,25" href="#?=https://github.com/Maps4HTML" alt="Maps for HTML on GitHub">
-            <area class="coords b" shape="circle" coords="163,49,25" href="#?=https://twitter.com/" alt="Twitter">
-            <area class="coords c" shape="circle" coords="275,49,25" href="#?=https://www.cbc.ca/news" alt="CBC">
-            <area class="coords d" shape="circle" coords="387,49,25" href="#?=http://geogratis.gc.ca/mapml/en/" alt="GeoGratis MapML Directory">
-            <area class="coords e" shape="circle" coords="499,49,25" href="#?=https://mail.google.com/mail/u/0/" alt="GMail">
-            <area class="coords f" shape="circle" coords="51,173,25" href="#?=https://www.theweathernetwork.com/ca/weather/ontario/ottawa" alt="The Weather Network">
-            <area class="coords g" shape="circle" coords="163,173,25" href="#?=https://buyandsell.gc.ca/" alt="Procurement / Tenders">
-            <area class="coords h" shape="circle" coords="275,173,25" href="#?=https://www.google.com/maps" alt="Google Maps">
-            <area class="coords i" shape="circle" coords="387,173,25" href="#?=https://gcdocs.gc.ca/nrcan-rncan/llisapi.dll?func=ll&objID=2119766&objAction=browse" alt="GCDocs">
-            <area class="coords j" shape="circle" coords="499,173,25" href="#?=https://github.com/prushforth/repositories" alt="GitHub">
-        </map>
+      <source media="(min-width: 426px)" srcset="shortcuts-2.png">
+      <img usemap="#map" src="shortcuts-1.png" width="205" height="1225" alt="Shortcuts">
     </picture>
-
+    <area class="coords a" shape="circle" coords="70,66,35" href="#?=https://github.com/Maps4HTML" alt="Maps for HTML on GitHub">
+    <area class="coords b" shape="circle" coords="219,66,35" href="#?=https://twitter.com/" alt="Twitter">
+    <area class="coords c" shape="circle" coords="369,66,35" href="#?=https://www.cbc.ca/news" alt="CBC">
+    <area class="coords d" shape="circle" coords="518,66,35" href="#?=http://geogratis.gc.ca/mapml/en/" alt="GeoGratis MapML Directory">
+    <area class="coords e" shape="circle" coords="667,66,35" href="#?=https://mail.google.com/mail/u/0/" alt="GMail">
+    <area class="coords f" shape="circle" coords="70,232,35" href="#?=https://www.theweathernetwork.com/ca/weather/ontario/ottawa" alt="The Weather Network">
+    <area class="coords g" shape="circle" coords="219,232,35" href="#?=https://buyandsell.gc.ca/" alt="Procurement / Tenders">
+    <area class="coords h" shape="circle" coords="369,232,35" href="#?=https://www.google.com/maps" alt="Google Maps">
+    <area class="coords i" shape="circle" coords="518,232,35" href="#?=https://gcdocs.gc.ca/nrcan-rncan/llisapi.dll?func=ll&objID=2119766&objAction=browse" alt="GCDocs">
+    <area class="coords j" shape="circle" coords="667,232,35" href="#?=https://github.com/prushforth/repositories" alt="GitHub">
+  </map>
+  
+  <h2>Issues</h2>
+  <ul>
+    <li>
+      The <code>&lt;area&gt;</code> element is not stylable in
+      Firefox:
+      <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=616333" target="_blank" rel="noopener">bug 1</a>,
+      <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=725921" target="_blank" rel="noopener">bug 2</a>.
+    </li>
+    <li>
+      Mismatch in the placement of CSS <code>outline</code>
+      and corresponding <code>&lt;area&gt;</code> elements
+      (i.e. outlines are displayed in regards to the <code>coords</code>
+      attribute values, not the absolutely positioned area elements.)
+      [Browser bugs?]
+    </li>
+  </ul>
 </body>
-
 </html>
