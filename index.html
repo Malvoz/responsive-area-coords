@@ -11,8 +11,8 @@
   /* Feature detection for progressive enhancement. */
   @supports (clip-path: initial) or (-webkit-clip-path: initial) {
     map {
-      position: relative;
       display: block;
+      position: relative;
     }
     
     area[coords] {
@@ -26,9 +26,9 @@
     
     /* Responsive image. */
     img[usemap] {
+      height: auto;
       width: 100%;
       max-width: 100%;
-      height: auto;
       vertical-align: middle;
     }
     
