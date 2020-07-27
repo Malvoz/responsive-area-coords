@@ -15,19 +15,19 @@
       display: block;
     }
     
+    area.coords {
+      position: absolute;
+      /* This example only uses a single shape for all the `<area>` elements. */
+      -webkit-clip-path: circle();
+              clip-path: circle();
+    }
+    
     /* Responsive image. */
     img[usemap] {
       width: 100%;
       max-width: 100%;
       height: auto;
       vertical-align: middle;
-    }
-    
-    area.coords {
-      position: absolute;
-      /* This example only uses a single shape for all the `<area>` elements. */
-      -webkit-clip-path: circle();
-              clip-path: circle();
     }
     
     @media (max-width:425px) {
@@ -127,7 +127,7 @@
 </head>
 <body>
   <header>
-    <h1>CSS-only Responsive image map</h1>
+    <h1>CSS-only responsive image map</h1>
     <a href="https://github.com/Maps4HTML/MapML/issues/101">Use case</a> |
     <a href="https://github.com/Malvoz/responsive-area-coords">Source</a> 
   </header>
