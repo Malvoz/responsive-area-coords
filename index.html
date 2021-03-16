@@ -172,27 +172,46 @@
   <h2 id="issues">Issues</h2>
   <ul>
     <li>
-      <p>The <code>&lt;area&gt;</code> element is not stylable in Firefox:</p>
-      <ul>
-        <li>
-          <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=616333" target="_blank" rel="noopener">https://bugzilla.mozilla.org/show_bug.cgi?id=616333</a>
-        </li>
-        <li>
-          <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=725921" target="_blank" rel="noopener">https://bugzilla.mozilla.org/show_bug.cgi?id=725921</a>
-        </li>
-      </ul>
+      <dl>
+        <dt>
+          The <code>&lt;area&gt;</code> element is not stylable in some browsers:
+        </dt>
+        <dd>
+          <ul>
+            <li>
+              <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=616333">https://bugzilla.mozilla.org/show_bug.cgi?id=616333</a>,
+              <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=725921">https://bugzilla.mozilla.org/show_bug.cgi?id=725921</a>
+            </li>
+            <li>
+              <a href="https://bugs.webkit.org/show_bug.cgi?id=110940">https://bugs.webkit.org/show_bug.cgi?id=110940</a>
+            </li>
+          </ul>
+        </dd>
+      </dl>
     </li>
     <li>
-      <p>
-        Mismatch in the placement of CSS <code>outline</code> 
-        and corresponding <code>&lt;area&gt;</code> elements 
-        (i.e. outlines are displayed in regards to the <code>coords</code> 
-        attribute values, not the absolutely positioned area elements.)
-      </p>
-      <p>
-        Chrome bug:
-        <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1127711" target="_blank" rel="noopener">https://bugs.chromium.org/p/chromium/issues/detail?id=1127711</a>
-      </p>
+      <dl>
+        <dt>
+          Although the <code>&lt;area&gt;</code> element is stylable in Chrome, there are some issues:
+        </dt>
+        <dd>
+          <ul>
+            <li>
+              Changing the position of <code>&lt;area&gt;</code> elements from the initial <code>coords</code> position using CSS
+              causes <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1127711#c7">2 clickable areas for each element</a>.
+            </li>
+            <li>
+              Mismatch in the placement of CSS <code>outline</code>
+              and corresponding <code>&lt;area&gt;</code> elements
+              (i.e. outlines are displayed in regards to the <code>coords</code>
+              attribute values, not the absolutely positioned area elements.)
+            </li>
+          </ul>
+          <p>
+            See <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1127711">https://bugs.chromium.org/p/chromium/issues/detail?id=1127711</a>.
+          </p>
+        </dd>
+      </dl>
     </li>
   </ul>
 </body>
